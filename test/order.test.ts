@@ -73,6 +73,7 @@ describe('Order', () => {
         { item: 'pizza', price: 7.50 },
         { item: 'pizza', price: 7.50 },
       ])
+      expect(order.basket).toEqual([])
     })
   })
 })
