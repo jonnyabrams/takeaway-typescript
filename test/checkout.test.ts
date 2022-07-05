@@ -1,5 +1,13 @@
 import Checkout from '../src/checkout'
 
 describe('Checkout', () => {
-  it('lists the ordered items')
+  let checkout: Checkout
+
+  beforeEach(() => {
+    checkout = new Checkout
+  })
+
+  it('has an array for storing the order items', () => {
+    expect(checkout.orderItems).toEqual([])
+  })
 })
