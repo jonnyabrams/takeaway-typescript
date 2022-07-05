@@ -21,7 +21,7 @@ export default class Order {
   removeItem(orderedItemId: number, quantity: number = 1): void {
     this.#handleRemoveItemErrors(orderedItemId, quantity)
 
-    this.basket.splice(this.basket.findIndex(({ itemId }) => itemId === orderedItemId), quantity)
+    this.basket.splice(this.basket.findIndex(({ itemId }) => itemId === orderedItemId), quantity) // this works with eg. item or name instead of itemId
   }
 
   proceedToCheckout() {
