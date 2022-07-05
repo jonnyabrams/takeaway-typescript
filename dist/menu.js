@@ -25,5 +25,4 @@ const menu = [
         price: 1.25
     },
 ];
-console.log(menu[0]);
 module.exports = menu;
