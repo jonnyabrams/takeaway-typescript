@@ -1,12 +1,15 @@
 import menu from './menu'
+import Checkout from './checkout'
 
 export default class Order {
   basket: { item: string | undefined, itemId: number | undefined, price: number | undefined }[]
   items: { id: number, item: string, price: number }[]
+  checkout: Checkout
 
-  constructor(items = menu) {
+  constructor(items = menu, checkout = new Checkout) {
     this.basket = []
     this.items = items
+    this.checkout = checkout
   }
 
   addItem(itemId: number, quantity: number = 1): void {
@@ -19,6 +22,11 @@ export default class Order {
     this.#handleRemoveItemErrors(orderedItemId, quantity)
 
     this.basket.splice(this.basket.findIndex(({ itemId }) => itemId === orderedItemId), quantity)
+  }
+
+  proceedToCheckout() {
+    this.basket.forEach(i => this.checkout.items.push({ item: i.item, price: i.price }))
+    this.basket = []
   }
 
   #handleAddItem(itemId: number, quantity: number = 1): void {

@@ -61,4 +61,18 @@ describe('Order', () => {
       expect(() => {order.removeItem(1, 3)}).toThrowError('Invalid request')
     })
   })
+
+  describe('proceedToCheckout', () => {
+    it('moves order items to checkout and clears the basket', () => {
+      order.addItem(1, 2)
+      order.addItem(2, 2)
+      order.proceedToCheckout()
+      expect(order.checkout.items).toEqual([
+        { item: 'burger', price: 5.25 }, 
+        { item: 'burger', price: 5.25 },
+        { item: 'pizza', price: 7.50 },
+        { item: 'pizza', price: 7.50 },
+      ])
+    })
+  })
 })

@@ -1,7 +1,7 @@
 export default class Checkout {
-  orderItems: { item: string, price: number }[]
+  items: { item: string | undefined, price: number | undefined }[]
 
   constructor() {
-    this.orderItems = []
+    this.items = []
   }
 }
