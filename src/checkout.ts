@@ -5,11 +5,11 @@ export default class Checkout {
     this.items = []
   }
 
-  printBill() {
-    return this.items.map(i => `${i.item}: ${i.price} \n`) + `Total: ${this.calculateTotal()}`
+  printBill(items = this.items): string {
+    return items.map(i => `${i.item}: £${i.price?.toFixed(2)}`).join('\n') + "\n" + `Total: £${this.calculateTotal(items).toFixed(2)}`
   }
 
-  calculateTotal(items = this.items) {
+  calculateTotal(items = this.items): number {
     let total = 0
     items.forEach(i => i.price ? total += i.price : total)
     return total
