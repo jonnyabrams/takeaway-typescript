@@ -18,7 +18,8 @@ export default class Order {
   removeItem(orderedItem: string, quantity: number = 1): void {
     const found = this.basket.some(i => i.item === orderedItem)
     if (!found) throw new Error('Item not found')
-    
+    if (quantity > this.basket.filter(i => i.item === orderedItem).length) throw new Error('Invalid request')
+
     this.basket.splice(this.basket.findIndex(({ item }) => item === orderedItem), quantity)
   }
 

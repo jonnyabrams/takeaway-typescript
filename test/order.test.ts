@@ -49,5 +49,16 @@ describe('Order', () => {
       order.removeItem('burger', 2)
       expect(order.basket).toEqual([])
     })
+
+    it('throws an error if item is not in basket', () => {
+      order.addItem(1)
+      expect(() => {order.removeItem('pizza')}).toThrowError('Item not found')
+      expect(() => {order.removeItem('sandwich')}).toThrowError('Item not found')
+    })
+
+    it('throws an error if specified quantity exceeds basket quantity', () => {
+      order.addItem(1, 2)
+      expect(() => {order.removeItem('burger', 3)}).toThrowError('Invalid request')
+    })
   })
 })
