@@ -18,9 +18,9 @@ describe('Order', () => {
   })
 
   describe('addItem', () => {
-    it('adds an item to the basket', () => {
+    it('adds an item to the basket with a default quantity of one', () => {
       order.addItem(1)
-      expect(order.basket).toEqual([{ item: 'burger', quantity: 1, price: 5.25 }])
+      expect(order.basket).toEqual([{ item: 'burger', price: 5.25 }])
     })
 
     it('throws an error if the item is not on the menu', () => {
