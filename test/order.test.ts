@@ -1,11 +1,5 @@
 import Order from '../src/order'
 
-interface MenuItem {
-  id: number
-  item: string
-  price: number
-}
-
 describe('Order', () => {
   let order: Order
 
@@ -23,7 +17,19 @@ describe('Order', () => {
       expect(order.basket).toEqual([{ item: 'burger', price: 5.25 }])
     })
 
-    it('throws an error if the item is not on the menu', () => {
+    it('can add multiples of the same item if quantity is specified', () => {
+      order.addItem(1, 2)
+      expect(order.basket).toEqual([{ item: 'burger', price: 5.25 }, { item: 'burger', price: 5.25 }])
+      order.addItem(2, 2)
+      expect(order.basket).toEqual([
+        { item: 'burger', price: 5.25 }, 
+        { item: 'burger', price: 5.25 },
+        { item: 'pizza', price: 7.50 },
+        { item: 'pizza', price: 7.50 },
+      ])
+    })
+
+    it('throws an error if item is not on the menu', () => {
       expect(() => {order.addItem(7)}).toThrowError('Item not on menu')
     })
   })
