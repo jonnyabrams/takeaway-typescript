@@ -1,7 +1,7 @@
 import menu from './menu'
 
 export default class Order {
-  basket: { item: string | undefined, price: number | undefined }[]
+  basket: { item: string | undefined, itemId: number | undefined, price: number | undefined }[]
   items: { id: number, item: string, price: number }[]
 
   constructor(items = menu) {
@@ -15,24 +15,26 @@ export default class Order {
     this.#handleAddItem(itemId, quantity)
   }
 
-  removeItem(orderedItem: string, quantity: number = 1): void {
-    this.#handleRemoveItemErrors(orderedItem, quantity)
+  removeItem(orderedItemId: number, quantity: number = 1): void {
+    this.#handleRemoveItemErrors(orderedItemId, quantity)
 
-    this.basket.splice(this.basket.findIndex(({ item }) => item === orderedItem), quantity)
+    this.basket.splice(this.basket.findIndex(({ itemId }) => itemId === orderedItemId), quantity)
   }
 
   #handleAddItem(itemId: number, quantity: number = 1): void {
     for (let i = 0; i < quantity; i++) {
       this.basket.push({ 
         item: this.items.find(i => i.id === itemId)?.item, 
+        itemId: this.items.find(i => i.id === itemId)?.id,
         price: this.items.find(i => i.id === itemId)?.price
       })
     }
   }
 
-  #handleRemoveItemErrors(orderedItem: string, quantity: number = 1): void {
-    const found = this.basket.some(i => i.item === orderedItem)
+  #handleRemoveItemErrors(orderedItemId: number, quantity: number = 1): void {
+    const found = this.basket.some(i => i.itemId === orderedItemId)
     if (!found) throw new Error('Item not found')
-    if (quantity > this.basket.filter(i => i.item === orderedItem).length) throw new Error('Invalid request')
+    
+    if (quantity > this.basket.filter(i => i.itemId === orderedItemId).length) throw new Error('Invalid request')
   }
 }
