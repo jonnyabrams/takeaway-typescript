@@ -33,4 +33,21 @@ describe('Order', () => {
       expect(() => {order.addItem(7)}).toThrowError('Item not on menu')
     })
   })
+
+  describe('removeItem', () => {
+    it('removes an item from the basket', () => {
+      order.addItem(1)
+      order.removeItem('burger')
+      expect(order.basket).toEqual([])
+    })
+
+    it('only removes one item at a time unless quantity is specified', () => {
+      order.addItem(1, 2)
+      order.removeItem('burger')
+      expect(order.basket).toEqual([{ item: 'burger', price: 5.25 }])
+      order.addItem(1)
+      order.removeItem('burger', 2)
+      expect(order.basket).toEqual([])
+    })
+  })
 })
