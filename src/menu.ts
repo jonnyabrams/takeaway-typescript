@@ -37,4 +37,4 @@ const menu: MenuItem[] = [
   },
 ]
 
-module.exports = menu
+export default menu
